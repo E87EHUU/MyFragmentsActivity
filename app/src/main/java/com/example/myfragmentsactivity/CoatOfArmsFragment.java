@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,8 +12,13 @@ import androidx.fragment.app.Fragment;
 
 public class CoatOfArmsFragment extends Fragment {
 
-    public static CoatOfArmsFragment newInstance() {
+    public static final String ARG_CITY = "city";
+    private City city;
+    public static CoatOfArmsFragment newInstance(City city) {
         CoatOfArmsFragment fragment = new CoatOfArmsFragment();
+        Bundle  bundle = new Bundle();
+        bundle.putParcelable(ARG_CITY, city);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -26,5 +32,8 @@ public class CoatOfArmsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        city = getArguments().getParcelable(ARG_CITY);
+        ImageView imageView = view.findViewById(R.id.imageView);
+        imageView.setImageResource(city.getImageIndex());
     }
 }
